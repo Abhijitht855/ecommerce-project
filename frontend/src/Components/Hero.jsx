@@ -15,6 +15,9 @@
 //                     <p className='font-semibold text-sm md:text-base'>SHOP NOW</p>
 //                     <p className='w-8 md:w-11 h-[2px] bg-[#414141]'></p>
 //                 </div>
+
+//                 <button>explore</button>
+
 //             </div>
 //         </div>
 
@@ -25,82 +28,63 @@
 
 // export default Hero
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { assets } from '../assets/assets'
-import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const Hero = () => {
-  // Define the array of images
-  const images = [assets.newhero, assets.newhero1];  // Add your image paths here
-
-  // State to track the current image index
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Effect to change the image every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
-
-    // Clean up the interval when the component is unmounted
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  // Function to handle the manual change of images
-  const handlePrevImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
-
-  const handleNextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
-
   return (
-    <div className="flex flex-col sm:flex-row items-center bg-gradient-to-r from-[#f0f0f0] via-[#e0e0e0] to-[#d0d0d0] p-10 sm:p-16 rounded-md">
-      {/* Text Content */}
-      <div className="w-full sm:w-1/2 flex flex-col justify-center text-center sm:text-left space-y-6 sm:space-y-8">
-        <div className="flex justify-center sm:justify-start items-center gap-3">
-          <p className="w-10 h-[2px] bg-[#333]"></p>
-          <p className="font-medium text-sm uppercase tracking-widest text-[#333]">Explore Our Bestsellers</p>
-        </div>
-        <h1 className="prata-regular text-4xl sm:text-6xl font-bold text-[#333] leading-tight sm:leading-snug">
-          New Arrivals Are Here
-        </h1>
-        <div className="flex justify-center sm:justify-start">
-          <Link to='/collection' className="bg-[#333] text-white py-3 px-6 rounded-full text-lg font-medium shadow-md hover:bg-[#444] transition duration-300">
-            Shop Now
-          </Link>
-        </div>
+    <div className="flex flex-col sm:flex-row py-10 sm:py-0 bg-gray-100 rounded-lg">
+      
+      {/* Left Section - Text and Button */}
+      <div className="w-full sm:w-1/2 flex flex-col justify-center items-start sm:pl-10 px-5">
+        <motion.div 
+          initial={{ opacity: 0, x: -100 }} 
+          animate={{ opacity: 1, x: 0 }} 
+          transition={{ duration: 0.8 }}
+          className="text-gray-800"
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <p className="w-10 md:w-12 h-[2px] bg-gray-800"></p>
+            <p className="font-semibold text-sm md:text-base uppercase tracking-wider text-gray-500">OUR BESTSELLERS</p>
+          </div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-snug text-gray-900"
+          >
+            Latest Arrivals
+          </motion.h1>
+
+          <div className="flex items-center gap-3 mt-4">
+            <p className="font-semibold text-sm md:text-base text-gray-700">SHOP NOW</p>
+            <p className="w-10 md:w-12 h-[2px] bg-gray-800"></p>
+          </div>
+
+          <motion.button 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-6 px-8 py-2 text-white bg-black rounded-md text-sm font-medium hover:bg-gray-800 transition duration-300"
+          >
+            Explore
+          </motion.button>
+        </motion.div>
       </div>
 
-      {/* Image with manual navigation */}
-      <div className="w-full sm:w-1/2 mt-10 sm:mt-0 sm:pl-10 relative overflow-hidden">
-        <img
-          className="object-cover w-full h-full rounded-lg shadow-xl transition-transform duration-500"
-          src={images[currentIndex]}  // Dynamically change the image based on currentIndex
-          alt="Latest Arrivals"
-        />
-
-        {/* Manual Navigation Arrows */}
-        <div className="absolute top-1/2 left-0 transform -translate-y-1/2 z-10">
-          <button
-            onClick={handlePrevImage}
-            className="bg-white text-[#333] rounded-full p-2 shadow-md hover:bg-gray-200 transition duration-300"
-          >
-            <span className="material-icons">-</span>
-          </button>
-        </div>
-        <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10">
-          <button
-            onClick={handleNextImage}
-            className="bg-white text-[#333] rounded-full p-2 shadow-md hover:bg-gray-200 transition duration-300"
-          >
-            <span className="material-icons">-</span>
-          </button>
-        </div>
-      </div>
+      {/* Right Section - Image */}
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="w-full sm:w-1/2 mt-10 sm:mt-0"
+      >
+        <img className="w-full h-full object-cover rounded-lg shadow-lg" src={assets.newhero} alt="New Arrivals" />
+      </motion.div>
     </div>
-  );
+  )
 }
 
 export default Hero;
