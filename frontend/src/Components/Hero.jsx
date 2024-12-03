@@ -31,6 +31,7 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
@@ -63,6 +64,7 @@ const Hero = () => {
             <p className="w-10 md:w-12 h-[2px] bg-gray-800"></p>
           </div>
 
+          <Link to='/collection'>
           <motion.button 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -71,6 +73,7 @@ const Hero = () => {
           >
             Explore
           </motion.button>
+          </Link>
         </motion.div>
       </div>
 
