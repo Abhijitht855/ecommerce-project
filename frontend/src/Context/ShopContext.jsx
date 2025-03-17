@@ -18,38 +18,47 @@ const ShopContextProvider = (props) => {
   const navigate = useNavigate()
 
 
-  const addToCart = async(itemId,size)=>{
-
+  const addToCart = async (itemId, size) => {
     if (!size) {
-      toast.error('Select Product Size')
-      return
+      toast.error("Select Product Size");
+      return;
     }
-    let cartData=structuredClone(cartItems)
-
+  
+    let cartData = structuredClone(cartItems);
+  
     if (cartData[itemId]) {
       if (cartData[itemId][size]) {
-        cartData[itemId][size] += 1
+        cartData[itemId][size] += 1;
+      } else {
+        cartData[itemId][size] = 1;
       }
-      else{
-        cartData[itemId][size]=1
-      }
+    } else {
+      cartData[itemId] = {};
+      cartData[itemId][size] = 1;
     }
-    else{
-      cartData[itemId] = {}
-      cartData[itemId][size]=1
-    }
-    setCartItems(cartData)
-
+  
+    setCartItems(cartData);
+  
     if (token) {
       try {
-        await axios.post(backendUrl + '/api/cart/add', {itemId,size},{headers:{token}})
+        const response = await axios.post(
+          backendUrl + "/api/cart/add",
+          { itemId, size },
+          { headers: { token } }
+        );
+  
+       
+        toast.success("Item added to cart!");
+  
       } catch (error) {
         console.log(error);
-        toast.error(error.message)
-        
+        toast.error(error.response?.data?.message || "Failed to add item to cart.");
       }
+    } else {
+      toast.success("Item added to cart!");
     }
-  }
+  };
+  
 
   const getCartCount =()=>{
     let totalCount=0
