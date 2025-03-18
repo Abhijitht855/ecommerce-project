@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import ShopContextProvider from "./Context/ShopContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <BrowserRouter future={{ v7_startTransition: true }}>
     <ShopContextProvider>
       <App />
     </ShopContextProvider>
